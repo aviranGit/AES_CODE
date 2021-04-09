@@ -16,5 +16,12 @@ public class Main {
         }
     }
 
+    private void manualTest(){
+        byte[] arr = AESFuncrtions.readFileAsBytes("TestFiles/message_short");
+        String [] test = AESFuncrtions.byteToHex(arr);
+        String[][] mat = AESFuncrtions.byteArrToMatrix(arr);
+        String[][] swap_mat = AESFuncrtions.SwapIndx(mat,2,1);
+    }
+
 
 }

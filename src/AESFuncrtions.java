@@ -10,11 +10,15 @@ import java.util.*;
 
 
 public class AESFuncrtions {
+    public AESFuncrtions() {
+    }
+
     /**
      * The function get input path and return byte array
      * @param filePath
      * @return
      */
+
     public static byte[] readFileAsBytes(String filePath){
         try {
             Path fileLocation = Paths.get(filePath);
