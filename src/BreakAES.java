@@ -1,26 +1,36 @@
-public class BreakAES {
-    private String[][] message;
-    private String[][] cipherText;
-    private String[][] key1;
-    private String[][] key2;
+import java.util.Arrays;
 
-    public BreakAES(String[][] message, String[][] cipher) {
+public class BreakAES {
+    private byte[][] message;
+    private byte[][] cipherText;
+    private byte[][] key1 = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
+    private byte[][] key2;
+
+    public BreakAES(byte[][] message, byte[][] cipher) {
         this.message = message;
         this.cipherText= cipher;
-        String[] tempMat = new String[]{"1000010000100001"};
-        this.key1 =AESFunctions.stringArrToMat(tempMat);
-        this.key2 = null;
+//        String[] tempMat = new String[]{"1000010000100001"};
+        this.key2 = new byte[4][4];
     }
 
-    public String[] breakAES(){
+    public byte[] breakAES(){
 
         this.key1 = AESFunctions.SwapIndx(this.key1);
         // M XOR C
-        String[][] resXOR = AESFunctions.XorMatrix(this.message, this.cipherText);
+        byte[][] resXOR = AESFunctions.XorMatrix(this.message, this.cipherText);
         this.key2 = AESFunctions.XorMatrix(this.key1, resXOR);
-        String[]k1 = AESFunctions.matToStringArr(this.key1);
-        String[]k2 =AESFunctions.matToStringArr(this.key2);
-        String[] result = new String[k1.length + k2.length];
+        byte[]k1 = AESFunctions.matToByteArr(this.key1);
+        byte[]k2 =AESFunctions.matToByteArr(this.key2);
+        byte[] result = new byte[k1.length + k2.length];
+        int ind = 0;
+        for (int i = 0; i < k1.length; i++) {
+            result[ind] = k1[i];
+            ind++;
+        }
+        for (int i = 0; i < k2.length; i++) {
+            result[ind] = k2[i];
+            ind++;
+        }
         return result;
     }
 }

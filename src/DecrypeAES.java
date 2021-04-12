@@ -13,12 +13,14 @@ public class DecrypeAES{
         this.key2 = key2;
     }
 
-    public String[] decrypt(String[][] cypher, String[][]key1, String[][]key2){
-        String[][] firstXor = AESFunctions.XorMatrix(cypher,key2);
-        String[][] res = AESFunctions.XorMatrix(firstXor, key1);
+    public byte[] decrypt(byte[][] cipher, byte[][]key1, byte[][]key2){
+
+        byte[][] firstXor = AESFunctions.XorMatrix(cipher,key2);
+        byte[][] swap_firstXOR = AESFunctions.SwapIndx(firstXor);
+        byte[][] res = AESFunctions.XorMatrix(swap_firstXOR, key1);
         res = AESFunctions.SwapIndx(res);
-        String[] strArr = AESFunctions.matToStringArr(res);
-        return strArr;
+        byte[] byteArr = AESFunctions.matToByteArr(res);
+        return byteArr;
     }
 
 }
